@@ -1,0 +1,46 @@
+package com.ahmet.bostanciklioglu.statussaver.utils.sharedPrefernces
+
+import android.content.Context
+import com.ahmet.bostanciklioglu.statussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARED_PEREFENCES.Companion.IS_FOLDER_SELECTED
+import com.ahmet.bostanciklioglu.statussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARED_PEREFENCES.Companion.SHARED_PEREFENCES
+import com.ahmet.bostanciklioglu.statussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARED_PEREFENCES.Companion.STORAGE_PERMISSION
+import com.ahmet.bostanciklioglu.statussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARED_PEREFENCES.Companion.TREE_URI_PATH
+
+object SharedPrefences {
+    fun setIsFolderSelected(context: Context, value: Boolean) {
+        val sp = context.getSharedPreferences(SHARED_PEREFENCES, Context.MODE_PRIVATE)
+        sp.edit().putBoolean(IS_FOLDER_SELECTED, value).apply()
+    }
+
+    fun isFolderSelected(context: Context): Boolean {
+        val sp = context.getSharedPreferences(SHARED_PEREFENCES, Context.MODE_PRIVATE)
+        if (sp.contains(IS_FOLDER_SELECTED)) {
+            return true
+        }
+        return false
+    }
+
+    fun treeUriPath(context: Context, treeUriPath: String) {
+        val sp = context.getSharedPreferences(SHARED_PEREFENCES, Context.MODE_PRIVATE)
+        sp.edit().putString(TREE_URI_PATH, treeUriPath).apply()
+    }
+
+    fun getTreeUriPath(context: Context): String {
+        val sp = context.getSharedPreferences(SHARED_PEREFENCES, Context.MODE_PRIVATE)
+        if (!sp.contains(TREE_URI_PATH)) {
+            return "null"
+        }
+        return sp.getString(TREE_URI_PATH, "") ?: ""
+    }
+
+    fun setStoragePermission(context: Context, value: Boolean) {
+        val sp = context.getSharedPreferences(SHARED_PEREFENCES, Context.MODE_PRIVATE)
+        sp.edit().putBoolean(STORAGE_PERMISSION, value).apply()
+    }
+
+    fun getStoragePermission(context: Context): Boolean {
+        val sp = context.getSharedPreferences(SHARED_PEREFENCES, Context.MODE_PRIVATE)
+        val permission = sp.getBoolean(STORAGE_PERMISSION, false)
+        return permission
+    }
+}
